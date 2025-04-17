@@ -4,7 +4,6 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from joblib import dump, load
-from pyngrok import ngrok
 
 cancer_df = pd.read_csv('kag_risk_factors_cervical_cancer.csv')
 
