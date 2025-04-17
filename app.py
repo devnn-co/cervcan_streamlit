@@ -7,7 +7,7 @@ from sklearn.model_selection import train_test_split
 from joblib import dump, load
 from pyngrok import ngrok
 
-cancer_df = pd.read_csv('C:\Users\bridg\Documents\Streamlit\kag_risk_factors_cervical_cancer.csv')
+cancer_df = pd.read_csv('kag_risk_factors_cervical_cancer.csv')
 
 cancer_df = cancer_df.replace('?', None)
 for i in cancer_df.columns:
@@ -38,23 +38,15 @@ decision_tree = DecisionTreeClassifier()
 decision_tree.fit(X_train, y_train)
 y_pred = decision_tree.predict(X_test)
 
-cm = confusion_matrix(y_test, y_pred)
-!ngrok authtoken 2uC4Pajp3rAuCx784CXyY58ZXEP_6C8bK7UkabVyFH37gEK77
-
-dump(decision_tree, "model.joblib")
-
-
-
-%%writefile header.py
 import streamlit as st
+dump(decision_tree, "model.joblib")
 
 def create_header():
   st.title("Using AI to Predict the Risk of Cervical Cancer")
   st.header("Bridget P")
   st.subheader("Making a prediction of a diagnosis of cervical cancer using a decision tree model.")
 
-%%writefile userinput.py
-import streamlit as st
+
 
 def get_user_input():
   CIN_diagnosis = st.number_input("Have you been diagnosed with cervical intraepithelial neoplasia (CIN)? Y: (1), N: (0)")
@@ -66,13 +58,13 @@ def get_user_input():
   return input_features
 
 
-%%writefile predictor.py
+
 
 def make_prediction(decision_tree, input):
   return decision_tree.predict(input)
 
 
-%%writefile response.py
+
 import streamlit as st
 
 def get_app_response(prediction):
@@ -84,7 +76,6 @@ def get_app_response(prediction):
     st.write ("No results yet")
 
 
-%%writefile app.py
 import streamlit as st
 from joblib import load
 
@@ -103,10 +94,6 @@ input_features = get_user_input()
 prediction = make_prediction(model, input_features)
 get_app_response(prediction)
 
-def launch_website():
-  print ("Click this link to try your web app:")
-  public_url = ngrok.connect()
-  print (public_url)
-  !streamlit run --server.port 80 app.py >/dev/null
 
-launch_website()
+
+
