@@ -79,11 +79,6 @@ def get_app_response(prediction):
 import streamlit as st
 from joblib import load
 
-# Imports the functions we coded above
-from header import *
-from userinput import *
-from response import *
-from predictor import *
 
 # Load our DecisionTree model into our web app
 model = load("model.joblib")
