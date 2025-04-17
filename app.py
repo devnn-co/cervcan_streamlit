@@ -4,11 +4,6 @@ import cv2
 import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import f1_score
-from sklearn.metrics import precision_score
-from sklearn.metrics import recall_score
-from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
-from sklearn.metrics import accuracy_score
 from joblib import dump, load
 from pyngrok import ngrok
 
@@ -44,15 +39,22 @@ decision_tree.fit(X_train, y_train)
 y_pred = decision_tree.predict(X_test)
 
 cm = confusion_matrix(y_test, y_pred)
+!ngrok authtoken 2uC4Pajp3rAuCx784CXyY58ZXEP_6C8bK7UkabVyFH37gEK77
+
 dump(decision_tree, "model.joblib")
 
 
+
+%%writefile header.py
 import streamlit as st
 
 def create_header():
   st.title("Using AI to Predict the Risk of Cervical Cancer")
   st.header("Bridget P")
   st.subheader("Making a prediction of a diagnosis of cervical cancer using a decision tree model.")
+
+%%writefile userinput.py
+import streamlit as st
 
 def get_user_input():
   CIN_diagnosis = st.number_input("Have you been diagnosed with cervical intraepithelial neoplasia (CIN)? Y: (1), N: (0)")
@@ -63,9 +65,15 @@ def get_user_input():
   input_features = [[CIN_diagnosis, cancer_diagnosis, smokes, year_hormonal_contraceptives]]
   return input_features
 
+
+%%writefile predictor.py
+
 def make_prediction(decision_tree, input):
   return decision_tree.predict(input)
 
+
+%%writefile response.py
+import streamlit as st
 
 def get_app_response(prediction):
   if prediction == 1:
@@ -76,13 +84,29 @@ def get_app_response(prediction):
     st.write ("No results yet")
 
 
+%%writefile app.py
 import streamlit as st
 from joblib import load
 
+# Imports the functions we coded above
+from header import *
+from userinput import *
+from response import *
+from predictor import *
+
+# Load our DecisionTree model into our web app
 model = load("model.joblib")
-st.write ("Model uploaded!")
+st.write ("Model uploaded!") # You may remove this in your finalized web app!
 
 create_header()
 input_features = get_user_input()
 prediction = make_prediction(model, input_features)
 get_app_response(prediction)
+
+def launch_website():
+  print ("Click this link to try your web app:")
+  public_url = ngrok.connect()
+  print (public_url)
+  !streamlit run --server.port 80 app.py >/dev/null
+
+launch_website()
