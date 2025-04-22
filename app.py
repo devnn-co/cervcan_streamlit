@@ -37,6 +37,7 @@ decision_tree.fit(X_train, y_train)
 y_pred = decision_tree.predict(X_test)
 
 import streamlit as st
+
 dump(decision_tree, "model.joblib")
 
 def create_header():
@@ -44,9 +45,7 @@ def create_header():
   st.header("Bridget P")
   st.subheader("Making a prediction of a diagnosis of cervical cancer using a decision tree model.")
   st.write("This model has above 95% accuracy, but it is not 100%, so the predictions are suggestions and not indicative of a formal diagnosis.")
-
-
-
+ 
 def get_user_input():
   CIN_diagnosis = st.number_input("Have you been diagnosed with cervical intraepithelial neoplasia (CIN)? Y: (1), N: (0)")
   cancer_diagnosis = st.number_input("Have you been diagnosed with any form of cancer in the past? Y: (1), N: (0) ")
@@ -56,15 +55,8 @@ def get_user_input():
   input_features = [[CIN_diagnosis, cancer_diagnosis, smokes, year_hormonal_contraceptives]]
   return input_features
 
-
-
-
 def make_prediction(decision_tree, input):
   return decision_tree.predict(input)
-
-
-
-import streamlit as st
 
 def get_app_response(prediction):
   if prediction == 1:
@@ -87,7 +79,3 @@ create_header()
 input_features = get_user_input()
 prediction = make_prediction(model, input_features)
 get_app_response(prediction)
-
-
-
-
