@@ -40,7 +40,7 @@ import streamlit as st
 dump(decision_tree, "model.joblib")
 
 def create_header():
-  st.title("   Using AI to Predict \n   The Risk of Cervical Cancer")
+  st.title("Using AI to Predict the Risk of Cervical Cancer")
   st.header("Bridget P")
   st.subheader("Making a prediction of a diagnosis of cervical cancer using a decision tree model.")
   st.write("This model has above 95% accuracy, but it is not 100%, so the predictions are suggestions and not indicative of a formal diagnosis.")
