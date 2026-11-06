@@ -1,0 +1,58 @@
+{
+  "n_samples": 858,
+  "n_positive": 55,
+  "features": [
+    "Age",
+    "Number of sexual partners",
+    "First sexual intercourse",
+    "Num of pregnancies",
+    "Smokes (years)",
+    "Hormonal Contraceptives (years)",
+    "IUD (years)",
+    "STDs (number)"
+  ],
+  "decision_tree": {
+    "roc_auc": {
+      "mean": 0.567,
+      "std": 0.103
+    },
+    "recall": {
+      "mean": 0.345,
+      "std": 0.156
+    },
+    "precision": {
+      "mean": 0.162,
+      "std": 0.104
+    },
+    "balanced_accuracy": {
+      "mean": 0.582,
+      "std": 0.103
+    },
+    "accuracy": {
+      "mean": 0.789,
+      "std": 0.125
+    }
+  },
+  "baseline_stratified_random": {
+    "roc_auc": {
+      "mean": 0.514,
+      "std": 0.053
+    },
+    "recall": {
+      "mean": 0.091,
+      "std": 0.1
+    },
+    "precision": {
+      "mean": 0.091,
+      "std": 0.1
+    },
+    "balanced_accuracy": {
+      "mean": 0.514,
+      "std": 0.053
+    },
+    "accuracy": {
+      "mean": 0.883,
+      "std": 0.013
+    }
+  }
+}
